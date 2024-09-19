@@ -42,8 +42,29 @@ function obtencionCoordenadasDesdeClick (evento) {
     return { fila, columna };
 }
 
+function comprobacionesRequisitosMinimos (pieza){
+    // Se comprueba si en la posicion hay pieza valida (Si no, no hace nada)
+    if (!(pieza in listaPiezas)){
+        return false;
+    }
+    
+    // Si es 1 entonces es blancas por tanto debe ser mayuscula
+    if  (usuarioMovimiento == 1 && pieza.toLowerCase() == pieza){
+        return false;
+    } 
+
+    if (usuarioMovimiento == 2 && pieza.toUpperCase () == pieza){
+        return false;
+    }
+
+    return true;
+}
+
+moverFicha
+
 // Función que marca las casillas a las que se puede mover
-function marcarCasillasDisponiblesMovimiento (){
+function marcarCasillasDisponiblesMovimiento (pieza, fila, columna){
+    movimientos = movimientoPiezas[pieza];
 
 }
 
@@ -51,16 +72,25 @@ function marcarCasillasDisponiblesMovimiento (){
 function movimientoPieza (evento){
     // Obtienes coordenadas del evento x e y
     const { fila, columna } = obtencionCoordenadasDesdeClick (evento);
-    const pieza = tablero[fila][columna].toLowerCase ();
+    const pieza = tablero[fila][columna];
 
-    // Se comprueba si en la posicion hay pieza valida (Si no, no hace nada)
-    if (!(pieza in listaPiezas)){
-        return
+    if (comprobacionesRequisitosMinimos (pieza, fila, columna)){
+        console.log ("Pieza valida");
+    
+        // Marcar las casillas que tiene disponibles
+        marcarCasillasDisponiblesMovimiento (pieza, fila, columna);
+    
+        
+        if (usuarioMovimiento == 1){
+            usuarioMovimiento = 2;
+        }
+        else{
+            usuarioMovimiento = 1;
+        }
     }
 
-    console.log ("Pieza valida")
 
-    // Marcar las casillas que tiene disponibles
+
     
 
 }
@@ -121,12 +151,13 @@ const listaPiezas = {
 const movimientoPiezas = {
     'p': 1, 
     'r': 1                        
-}
+};
 
-
+// Indica el que mueve la pieza (1 -> Blanco, 2-> Negro)
+let usuarioMovimiento = 1;
+let fichaSeleccionada = false;
 
 // Inicializar el tablero de ajedrez
-//dibujarTablero();
 dibujarTablero();
     
 
