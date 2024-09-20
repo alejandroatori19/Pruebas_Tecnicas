@@ -1,6 +1,6 @@
 export const TAMANO_BLOQUE = 20
-export const ANCHURA_TABLERO = 25
-export const ALTURA_TABLERO = 35
+export const ANCHURA_TABLERO = 10
+export const ALTURA_TABLERO = 20        //34
 
 export const MOVIMIENTOS = {
   IZQUIERDA: 'ArrowLeft',
